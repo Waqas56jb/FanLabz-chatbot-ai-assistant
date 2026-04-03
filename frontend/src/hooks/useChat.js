@@ -1,5 +1,6 @@
 import { useState, useCallback } from 'react';
 import axios from 'axios';
+import API_BASE from '../config/api';
 
 const useChat = () => {
     const [messages, setMessages] = useState([]);
@@ -17,7 +18,7 @@ const useChat = () => {
         addMessage('user', text);
 
         try {
-            const res = await axios.post('/api/chat', {
+            const res = await axios.post(`${API_BASE}/api/chat`, {
                 messages: [...messages.map(m => ({ role: m.role, content: m.content })), { role: 'user', content: text }],
                 sessionId
             });

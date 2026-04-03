@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import API_BASE from '../config/api';
 
 const Calculator = ({ isOpen, onClose }) => {
     const [inputs, setInputs] = useState({
@@ -17,7 +18,7 @@ const Calculator = ({ isOpen, onClose }) => {
 
     const runCalc = async () => {
         try {
-            const res = await axios.post('/api/calculate', inputs);
+            const res = await axios.post(`${API_BASE}/api/calculate`, inputs);
             setResult(res.data);
         } catch (error) {
             console.error('Calc error:', error);

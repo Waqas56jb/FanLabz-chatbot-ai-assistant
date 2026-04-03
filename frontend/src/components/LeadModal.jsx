@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import API_BASE from '../config/api';
 
 const LeadModal = ({ isOpen, onClose, sessionId }) => {
     const [formData, setFormData] = useState({
@@ -23,7 +24,7 @@ const LeadModal = ({ isOpen, onClose, sessionId }) => {
         }
 
         try {
-            await axios.post('/api/lead', { ...formData, sessionId });
+            await axios.post(`${API_BASE}/api/lead`, { ...formData, sessionId });
             setSubmitted(true);
             setTimeout(() => {
                 onClose();
