@@ -1,15 +1,35 @@
 import React from 'react';
 
-const Sidebar = ({ onAsk, openCalc, openModal }) => {
+const Sidebar = ({ onAsk, openCalc, openModal, narrow, drawerOpen, onCloseDrawer }) => {
+    const asideClass = [
+        'sidebar',
+        narrow ? 'sidebar-drawer' : '',
+        narrow && drawerOpen ? 'mobile-open' : '',
+    ]
+        .filter(Boolean)
+        .join(' ');
+
     return (
-        <aside className="sidebar">
+        <aside className={asideClass} aria-hidden={narrow ? !drawerOpen : undefined}>
             <div className="sidebar-brand">
-                <div className="brand-row">
-                    <div className="brand-icon">💸</div>
-                    <div>
-                        <div className="brand-name">fanLabz</div>
-                        <div className="brand-tagline">Elevate your brand</div>
+                <div className="sidebar-brand-top">
+                    <div className="brand-row">
+                        <div className="brand-icon">💸</div>
+                        <div className="brand-text">
+                            <div className="brand-name">fanLabz</div>
+                            <div className="brand-tagline">Elevate your brand</div>
+                        </div>
                     </div>
+                    {narrow && (
+                        <button
+                            type="button"
+                            className="sidebar-drawer-close"
+                            aria-label="Close menu"
+                            onClick={onCloseDrawer}
+                        >
+                            ✕
+                        </button>
+                    )}
                 </div>
                 <span className="ai-online">
                     <span className="online-dot"></span>LABZ AI Online

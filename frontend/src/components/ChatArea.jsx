@@ -1,6 +1,20 @@
 import React, { useRef, useEffect } from 'react';
 
-const ChatArea = ({ messages, sendMessage, busy, onAsk, clearChat, openCalc, openModal }) => {
+const ChatArea = ({
+    messages,
+    sendMessage,
+    busy,
+    onAsk,
+    clearChat,
+    openCalc,
+    openModal,
+    showHome,
+    onGoHome,
+    onContinue,
+    narrow,
+    onToggleMobileMenu,
+    mobileMenuOpen,
+}) => {
     const messagesEndRef = useRef(null);
     const inputRef = useRef(null);
 
@@ -15,6 +29,7 @@ const ChatArea = ({ messages, sendMessage, busy, onAsk, clearChat, openCalc, ope
     const handleSend = () => {
         const text = inputRef.current.value.trim();
         if (text) {
+            onContinue();
             sendMessage(text);
             inputRef.current.value = '';
             inputRef.current.style.height = 'auto';
@@ -47,7 +62,23 @@ const ChatArea = ({ messages, sendMessage, busy, onAsk, clearChat, openCalc, ope
     return (
         <main className="main">
             <header className="chat-header">
+                {narrow && (
+                    <button
+                        type="button"
+                        className="mobile-menu-btn"
+                        onClick={onToggleMobileMenu}
+                        aria-label="Open navigation menu"
+                        aria-expanded={Boolean(mobileMenuOpen)}
+                    >
+                        ☰
+                    </button>
+                )}
                 <div className="chat-header-info">
+                    {messages.length > 0 && !showHome && (
+                        <button className="back-home-btn" onClick={onGoHome} title="Back to Home">
+                            ← Home
+                        </button>
+                    )}
                     <h1>LABZ — FanLabz AI Assistant</h1>
                     <p>Powered by GPT-4o · Responds in your language · fanlabz.com</p>
                 </div>
@@ -72,7 +103,7 @@ const ChatArea = ({ messages, sendMessage, busy, onAsk, clearChat, openCalc, ope
             </div>
 
             <div className="messages" id="messages">
-                {messages.length === 0 && (
+                {(messages.length === 0 || showHome) && (
                     <div className="welcome-hero" id="welcomeHero">
                         <div className="hero-avatar">💸</div>
                         <div className="hero-name">Hi, I'm LABZ!</div>
@@ -107,10 +138,17 @@ const ChatArea = ({ messages, sendMessage, busy, onAsk, clearChat, openCalc, ope
                             <div className="hchip" onClick={() => onAsk('¿Cómo funciona FanLabz y cómo puedo ganar dinero?')}>🇪🇸 Español</div>
                             <div className="hchip" onClick={openCalc}>📊 Earnings calculator</div>
                         </div>
+                        {messages.length > 0 && showHome && (
+                            <div style={{ display: 'flex', justifyContent: 'center', padding: '8px 0 16px' }}>
+                                <button type="button" className="continue-chat-btn" onClick={onContinue}>
+                                    💬 Continue Conversation →
+                                </button>
+                            </div>
+                        )}
                     </div>
                 )}
 
-                {messages.map((msg, idx) => (
+                {!showHome && messages.map((msg, idx) => (
                     <div key={idx} className={`msg ${msg.role === 'user' ? 'user' : 'bot'}`}>
                         <div className={`msg-av ${msg.role === 'user' ? 'user-av' : 'bot'}`}>
                             {msg.role === 'user' ? '👤' : '💸'}
@@ -124,7 +162,7 @@ const ChatArea = ({ messages, sendMessage, busy, onAsk, clearChat, openCalc, ope
                     </div>
                 ))}
 
-                {busy && (
+                {busy && !showHome && (
                     <div className="msg bot" id="typing">
                         <div className="msg-av bot">💸</div>
                         <div className="msg-body">

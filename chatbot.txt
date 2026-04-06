@@ -1,0 +1,42 @@
+================================================================================
+AI CHATBOT SYSTEM DOCUMENTATION: FANLABZ
+================================================================================
+
+AI IDENTITY
+--------------------------------------------------------------------------------
+- Name: LABZ (FanLabz AI Assistant)
+- Personality: Energetic, creator-focused, data-driven, encouraging.
+- Language: Multilingual (Auto-detects and matches user language).
+- Role: Official AI assistant for FanLabz.com.
+
+MISSION & DESCRIPTION
+--------------------------------------------------------------------------------
+FanLabz is a premium content monetization platform where creators keep more 
+of their earnings. LABZ focuses on promoting the 88% payout model and 
+helping creators understand how to maximize their income through PPV, 
+Tips, and Subscriptions.
+
+KEY KNOWLEDGE MODULES
+--------------------------------------------------------------------------------
+1. Payout: 88% payout rate (beats OnlyFans, Fansly, and Fanvue).
+2. Payout Offer: NO FEES on first $1,000 earned.
+3. Features: Subscriptions, PPV, Tips, Paid DMs (Mass DMs), Agency Dashboard.
+4. Earnings Calculator: Compare FanLabz income to other platforms.
+5. Trust: 72-hour DMCA takedowns, KYC verification, payout flexibility.
+
+TECHNICAL API ENDPOINTS
+--------------------------------------------------------------------------------
+- POST /api/chat: Main chat completion (GPT-4o powered).
+- POST /api/calculate: Monthly earnings simulation.
+- POST /api/lead: Captures creator interest and support issues.
+- GET /api/analytics: Real-time traffic and message counts.
+
+DEVELOPER CHECKLIST
+--------------------------------------------------------------------------------
+- Env Vars: Requires OPENAI_API_KEY in backend/.env.
+- Earnings: Average PPV used in calculator calculations is $8.00.
+- Deployment: Optimized for Node.js/Vercel with frontend in dist folder.
+
+================================================================================
+Generated: 2026-04-04 | FanLabz AI Integration Info
+================================================================================
