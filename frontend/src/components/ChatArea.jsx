@@ -53,8 +53,8 @@ const ChatArea = ({
             .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
             .replace(/\*(.*?)\*/g, '<em>$1</em>')
             .replace(/`([^`]+)`/g, '<code style="background:#f4f4f5;padding:1px 5px;border-radius:4px;font-family:monospace;font-size:12px">$1</code>')
-            .replace(/^### (.+)$/gm, '<strong style="font-size:13px;text-transform:uppercase;letter-spacing:0.5px;color:#7c3aed">$1</strong>')
-            .replace(/^## (.+)$/gm, '<strong style="font-size:15px;color:#7c3aed">$1</strong>')
+            .replace(/^### (.+)$/gm, '<strong style="font-size:13px;text-transform:uppercase;letter-spacing:0.5px;color:#4f46e5">$1</strong>')
+            .replace(/^## (.+)$/gm, '<strong style="font-size:15px;color:#4f46e5">$1</strong>')
             .replace(/\[([^\]]+)\]\((https?:\/\/[^\)]+)\)/g, '<a href="$2" target="_blank">$1</a>')
             .split('\n').join('<br>');
     };
@@ -74,8 +74,13 @@ const ChatArea = ({
                     </button>
                 )}
                 <div className="chat-header-info">
+                    {messages.length > 0 && showHome && (
+                        <button type="button" className="back-home-btn" onClick={onContinue} title="Back to conversation">
+                            ← Back
+                        </button>
+                    )}
                     {messages.length > 0 && !showHome && (
-                        <button className="back-home-btn" onClick={onGoHome} title="Back to Home">
+                        <button type="button" className="back-home-btn back-home-btn--home" onClick={onGoHome} title="Home">
                             ← Home
                         </button>
                     )}
@@ -105,7 +110,7 @@ const ChatArea = ({
             <div className="messages" id="messages">
                 {(messages.length === 0 || showHome) && (
                     <div className="welcome-hero" id="welcomeHero">
-                        <div className="hero-avatar">💸</div>
+                        <div className="hero-avatar" aria-hidden>✨</div>
                         <div className="hero-name">Hi, I'm LABZ!</div>
                         <p className="hero-desc">
                             Your AI assistant for <strong>FanLabz</strong> — the creator platform where you keep <strong>up to 88%</strong> of your earnings with instant payouts, smart mass DMs, and full DMCA protection. I can answer anything in <strong>any language</strong>.

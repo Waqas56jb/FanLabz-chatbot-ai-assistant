@@ -1,14 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,700;1,9..144,400&display=swap');
 
 :root {
-    --pink: #e91e8c;
-    --pink-light: #f43fa6;
-    --pink-pale: #fce7f3;
-    --purple: #7c3aed;
-    --purple-light: #8b5cf6;
-    --purple-pale: #f5f3ff;
-    --grad: linear-gradient(135deg, #e91e8c 0%, #7c3aed 100%);
-    --grad-soft: linear-gradient(135deg, #fce7f3 0%, #f5f3ff 100%);
+    /* Updated brand palette — replace /public/logo.png when your new icon is ready */
+    --pink: #0891b2;
+    --pink-light: #06b6d4;
+    --pink-pale: #ecfeff;
+    --purple: #4f46e5;
+    --purple-light: #6366f1;
+    --purple-pale: #eef2ff;
+    --grad: linear-gradient(135deg, #0891b2 0%, #4f46e5 100%);
+    --grad-soft: linear-gradient(135deg, #ecfeff 0%, #eef2ff 100%);
     --dark: #0f0a1e;
     --dark-2: #1a1033;
     --white: #ffffff;
