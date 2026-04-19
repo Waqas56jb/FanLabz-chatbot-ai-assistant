@@ -5,8 +5,7 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
 import { createPortal } from 'react-dom';
 
-/* Empty fallback → Vite proxy routes /api/* to localhost:3000 in dev */
-const API_BASE = (import.meta.env.VITE_API_BASE_URL?.trim() || '').replace(/\/$/, '');
+const API_BASE = (import.meta.env.VITE_API_BASE_URL || 'https://fan-labz-chatbot-ai-assistant-oizw.vercel.app').replace(/\/$/, '');
 const REALTIME_MODEL = 'gpt-4o-realtime-preview-2024-12-17';
 
 function micErrorMsg(err) {
