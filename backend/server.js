@@ -343,6 +343,45 @@ app.get('/api/analytics', (req, res) => {
     });
 });
 
+// ─── Realtime Voice Agent — Ephemeral Token ──────────────────────────────────
+app.post('/api/realtime-token', async (req, res) => {
+    try {
+        const response = await fetch('https://api.openai.com/v1/realtime/sessions', {
+            method: 'POST',
+            headers: { 'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`, 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                model: 'gpt-4o-realtime-preview-2024-12-17',
+                voice: 'nova',
+                instructions: `You are LABZ — the official AI assistant for FanLabz (fanlabz.com), the creator monetization platform where creators keep up to 88% of their earnings.
+
+BEGIN IMMEDIATELY — greet the user the moment you connect:
+Say: "Hey! I'm LABZ, your FanLabz assistant. Whether you're a creator or a fan, I can help you get started, understand payouts, or answer anything about the platform. What's on your mind?"
+Then listen. Do not speak again until the user responds.
+
+SPEAK NATURALLY for voice — energetic, creator-friendly, concise.
+
+KEY FACTS:
+- Website: fanlabz.com | Email: info@fanlabz.com
+- Creators keep UP TO 88% of earnings (platform fee: 12%)
+- NO fees on first $1,000 earned
+- Revenue streams: subscriptions, PPV, tips, paid DMs, live streams, agency tools
+- Instant payouts, DMCA protection (72-hour takedown), agency dashboard
+- Responds in any language — detect and match user's language`,
+                modalities: ['audio', 'text'],
+                input_audio_transcription: { model: 'whisper-1' },
+                turn_detection: { type: 'server_vad', threshold: 0.5, prefix_padding_ms: 300, silence_duration_ms: 600, create_response: true }
+            })
+        });
+        const data = await response.json();
+        if (!response.ok) return res.status(500).json({ error: 'Failed to create realtime session', details: data });
+        console.log('🎙️  Voice session created — expires:', data.client_secret?.expires_at);
+        res.json({ token: data.client_secret.value, expires: data.client_secret.expires_at });
+    } catch (err) {
+        console.error('Realtime token endpoint error:', err);
+        res.status(500).json({ error: err.message });
+    }
+});
+
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '../frontend/dist/index.html'));
 });

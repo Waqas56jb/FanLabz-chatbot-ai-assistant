@@ -92,6 +92,12 @@ function App() {
                 narrow={narrow}
                 onToggleMobileMenu={() => setMobileMenuOpen((o) => !o)}
                 mobileMenuOpen={mobileMenuOpen}
+                onVoiceTranscript={(transcript) => {
+                    const time = new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+                    addMessage('bot', '🎙️ Voice conversation');
+                    transcript.forEach((m) => addMessage(m.role === 'assistant' ? 'bot' : 'user', m.text));
+                    setShowHome(false);
+                }}
             />
 
             {narrow && mobileMenuOpen && (
