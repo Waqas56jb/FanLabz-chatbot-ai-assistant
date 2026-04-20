@@ -1,13 +1,16 @@
-require('dotenv').config();
+if (process.env.VERCEL !== '1') {
+    require('dotenv').config();
+}
 const express = require('express');
 const cors = require('cors');
 const fs = require('fs');
 const path = require('path');
 
+const isVercel = process.env.VERCEL === '1';
+
 const app = express();
 app.use(cors());
 app.use(express.json());
-app.use(express.static(path.join(__dirname, '../frontend/dist')));
 
 // ============================================================
 // FANLABZ COMPLETE KNOWLEDGE BASE — DEEP TRAINING DATA
@@ -351,7 +354,7 @@ app.post('/api/realtime-token', async (req, res) => {
             headers: { 'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`, 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 model: 'gpt-4o-realtime-preview-2024-12-17',
-                voice: 'nova',
+                voice: 'shimmer',
                 instructions: `You are LABZ — the official AI assistant for FanLabz (fanlabz.com), the creator monetization platform where creators keep up to 88% of their earnings.
 
 BEGIN IMMEDIATELY — greet the user the moment you connect:
@@ -382,13 +385,22 @@ KEY FACTS:
     }
 });
 
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../frontend/dist/index.html'));
-});
+const frontendDist = path.join(__dirname, '../frontend/dist');
+
+if (!isVercel && fs.existsSync(frontendDist)) {
+    app.use(express.static(frontendDist));
+    app.get('*', (req, res) => {
+        res.sendFile(path.join(frontendDist, 'index.html'));
+    });
+}
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    console.log(`\n💸 FanLabz AI Chatbot → http://localhost:${PORT}`);
-    console.log(`📧 info@fanlabz.com | www.fanlabz.com`);
-    console.log(`\n${process.env.OPENAI_API_KEY ? '✅ OpenAI key loaded' : '❌ Add OPENAI_API_KEY to .env'}\n`);
-});
+if (!isVercel) {
+    app.listen(PORT, () => {
+        console.log(`\n💸 FanLabz AI Chatbot → http://localhost:${PORT}`);
+        console.log(`📧 info@fanlabz.com | www.fanlabz.com`);
+        console.log(`\n${process.env.OPENAI_API_KEY ? '✅ OpenAI key loaded' : '❌ Add OPENAI_API_KEY to .env'}\n`);
+    });
+}
+
+module.exports = app;
