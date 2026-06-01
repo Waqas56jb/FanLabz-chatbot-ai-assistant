@@ -33,3 +33,5 @@ analytics.json
 leads.json
 backend/leads.json
 backend/analytics.json
+
+.vercel
