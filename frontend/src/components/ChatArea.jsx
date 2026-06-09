@@ -93,7 +93,7 @@ const ChatArea = ({
                             ← Home
                         </button>
                     )}
-                    <h1>LABZ — FanLabz AI Assistant</h1>
+                    <h1>FanLabz AI Assistant</h1>
                     <p>Powered by GPT-4o · Responds in your language · fanlabz.com</p>
                 </div>
                 <div className="header-btns">
@@ -120,7 +120,7 @@ const ChatArea = ({
                 {(messages.length === 0 || showHome) && (
                     <div className="welcome-hero" id="welcomeHero">
                         <div className="hero-avatar" aria-hidden>✨</div>
-                        <div className="hero-name">Hi, I'm LABZ!</div>
+                        <div className="hero-name">Hi, I'm the FanLabz Assistant!</div>
                         <p className="hero-desc">
                             Your AI assistant for <strong>FanLabz</strong> — the creator platform where you keep <strong>up to 88%</strong> of your earnings with instant payouts, smart mass DMs, and full DMCA protection. I can answer anything in <strong>any language</strong>.
                         </p>

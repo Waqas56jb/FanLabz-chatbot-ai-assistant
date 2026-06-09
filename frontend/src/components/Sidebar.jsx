@@ -32,7 +32,7 @@ const Sidebar = ({ onAsk, openCalc, openModal, narrow, drawerOpen, onCloseDrawer
                     )}
                 </div>
                 <span className="ai-online">
-                    <span className="online-dot"></span>LABZ AI Online
+                    <span className="online-dot"></span>FanLabz AI Online
                 </span>
             </div>
 

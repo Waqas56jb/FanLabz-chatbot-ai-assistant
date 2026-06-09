@@ -215,7 +215,7 @@ app.post('/api/chat', async (req, res) => {
     }
     saveJSON(ANALYTICS_FILE, analytics);
 
-    const systemPrompt = `You are LABZ — FanLabz's official AI assistant. You are energetic, knowledgeable, creator-focused, and deeply invested in helping creators maximize their income on FanLabz.
+    const systemPrompt = `You are the FanLabz Assistant — FanLabz's official AI assistant. Always refer to yourself as "FanLabz" or "the FanLabz Assistant", never as "Labz". You are energetic, knowledgeable, creator-focused, and deeply invested in helping creators maximize their income on FanLabz.
 
 YOUR PERSONALITY:
 - Enthusiastic but professional — you genuinely care about creators' success
@@ -358,11 +358,11 @@ app.post('/api/realtime-token', async (req, res) => {
                 type: 'realtime',
                 model: 'gpt-realtime',
                 output_modalities: ['audio'],
-                audio: { input: { transcription: { model: 'whisper-1' }, turn_detection: { type: 'server_vad', threshold: 0.5, prefix_padding_ms: 300, silence_duration_ms: 600, create_response: true } }, output: { voice: 'shimmer' } },
-                instructions: `You are LABZ — the official AI assistant for FanLabz (fanlabz.com), the creator monetization platform where creators keep up to 88% of their earnings.
+                audio: { input: { transcription: { model: 'whisper-1' }, noise_reduction: { type: 'near_field' }, turn_detection: { type: 'semantic_vad', eagerness: 'low', create_response: true, interrupt_response: true } }, output: { voice: 'shimmer' } },
+                instructions: `You are the FanLabz Assistant — the official AI assistant for FanLabz (fanlabz.com), the creator monetization platform where creators keep up to 88% of their earnings. Always call yourself "FanLabz", never "Labz".
 
 BEGIN IMMEDIATELY — greet the user the moment you connect:
-Say: "Hey! I'm LABZ, your FanLabz assistant. Whether you're a creator or a fan, I can help you get started, understand payouts, or answer anything about the platform. What's on your mind?"
+Say: "Hey! Welcome to FanLabz — I'm your FanLabz assistant. Whether you're a creator or a fan, I can help you get started, understand payouts, or answer anything about the platform. What's on your mind?"
 Then listen. Do not speak again until the user responds.
 
 SPEAK NATURALLY for voice — energetic, creator-friendly, concise.
